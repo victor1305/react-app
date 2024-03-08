@@ -7,15 +7,25 @@ const Table = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch("https://opentdb.com/api.php?amount=50", {
-        method: "GET",
-      });
+      const res = await fetch(
+        "https://opentdb.com/api.php?amount=50&encode=url3986",
+        {
+          method: "GET",
+        }
+      );
       const data = await res.json();
-      console.log(data);
       setData(data.results);
     } catch (error) {
       console.error("There was an error loading data: ", error);
     }
+  };
+
+  const formatType = (str) =>
+    str === "Multiple" ? "Multiple Choice" : "True / False";
+
+  const capitalizeString = (str) => {
+    if (!str || typeof str !== "string") return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
   useEffect(() => {
@@ -29,21 +39,23 @@ const Table = () => {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Category</th>
-              <th>Type</th>
+              <th className="text-center">ID</th>
+              <th className="text-left">Category</th>
+              <th className="text-left">Type</th>
               <th>Difficulty</th>
-              <th>Question / Statement</th>
+              <th className="text-left">Question / Statement</th>
             </tr>
           </thead>
           <tbody>
             {data.map((elm, index) => (
               <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{elm.category}</td>
-                <td>{elm.type}</td>
-                <td>{elm.difficulty}</td>
-                <td>{elm.question}</td>
+                <td className="text-center">{index + 1}</td>
+                <td>{decodeURIComponent(elm.category)}</td>
+                <td>
+                  {formatType(capitalizeString(decodeURIComponent(elm.type)))}
+                </td>
+                <td>{capitalizeString(decodeURIComponent(elm.difficulty))}</td>
+                <td>{decodeURIComponent(elm.question)}</td>
               </tr>
             ))}
           </tbody>
