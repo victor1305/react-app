@@ -1,34 +1,40 @@
-import '../assets/header.scss'
+import { FaAlignJustify, FaComments, FaGears, FaPlus } from "react-icons/fa6";
+import { BiLogIn } from "react-icons/bi";
+
+import "../assets/header.scss";
 
 const Header = () => {
   const headerBtns = [
     {
-      icon: "",
+      icon: FaAlignJustify,
       label: "BROWSE",
     },
     {
-      icon: "",
+      icon: FaPlus,
       label: "ADD NEW QUESTIONS",
     },
     {
-      icon: "",
+      icon: FaGears,
       label: "API",
     },
     {
-      icon: "",
+      icon: FaComments,
       label: "DISCUSS",
     },
     {
-      icon: "",
+      icon: BiLogIn,
       label: "LOGIN",
     },
   ];
 
   return (
     <nav className="navbar">
-      <div className="">
+      <div>
         {headerBtns.map((elm, index) => (
-          <button key={`nav-btn-${index}`}>{elm.label}</button>
+          <button key={`nav-btn-${index}`}>
+            <elm.icon />
+            <span>{elm.label}</span>
+          </button>
         ))}
       </div>
     </nav>
