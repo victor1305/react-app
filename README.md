@@ -1,7 +1,7 @@
 
 # Notas
 
-He comentado el "React.StrictMode" en index.js porque durante el desarrollo al duplicar el rederizado la API detectaba demasiadas conexiones y daba un error.
+He comentado el "React.StrictMode" en index.js porque durante el desarrollo al duplicar el rederizado la API detectaba demasiadas conexiones y daba un error. Se que en producción esto no sería un problema, pero por si la vais a probar en modo desarrollo, para evitar errores...
 
 Al ser una aplicación pequeña no he gastado tiempo en componetizarla al nivel que lo hubiera hecho en una app con otro tipo de proyección
 
