@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { FaAngleRight, FaAngleLeft, FaSort } from "react-icons/fa6";
+import { IoSearch } from "react-icons/io5"
 
 import "../assets/table.scss";
 
 const Table = () => {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [tablePage, setTablePage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
   const [pages, setPages] = useState(0);
 
   const fetchData = async () => {
@@ -37,21 +40,49 @@ const Table = () => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
+  const handleSearch = () => {
+    const newFilteredData = data.filter((elm) =>
+      decodeURIComponent(elm.question)
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(newFilteredData);
+    setTablePage(1);
+    setPages(Math.ceil(newFilteredData.length / 10));
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    setFilteredData(data);
+    setPages(Math.ceil(data.length / 10));
+  }, [data]);
+
   return (
     <div className="table">
+      <form onSubmit={(e) => e.preventDefault()}>
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button onClick={handleSearch}>
+          <IoSearch />
+          <span>SEARCH</span>
+        </button>
+      </form>
       <h2>Browse Questions</h2>
-      {data?.length ? (
+      {filteredData?.length ? (
         <>
           <table>
             <thead>
               <tr>
                 <th className="table__id">
                   <span>ID</span>{" "}
-                  <FaSort onClick={() => setData([...data].reverse())} />
+                  <FaSort
+                    onClick={() => setData([...filteredData].reverse())}
+                  />
                 </th>
                 <th className="text-left">Category</th>
                 <th className="text-left">Type</th>
@@ -60,7 +91,7 @@ const Table = () => {
               </tr>
             </thead>
             <tbody>
-              {data
+              {filteredData
                 .slice((tablePage - 1) * 10, (tablePage - 1) * 10 + 10)
                 .map((elm, index) => (
                   <tr key={index}>
