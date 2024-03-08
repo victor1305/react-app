@@ -1,3 +1,12 @@
+
+# Notas
+
+He comentado el "React.StrictMode" en index.js porque durante el desarrollo al duplicar el rederizado la API detectaba demasiadas conexiones y daba un error.
+
+Al ser una aplicación pequeña no he gastado tiempo en componetizarla al nivel que lo hubiera hecho en una app con otro tipo de proyección
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
