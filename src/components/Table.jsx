@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight, FaAngleLeft, FaSort } from "react-icons/fa6";
 
 import "../assets/table.scss";
 
@@ -17,7 +17,12 @@ const Table = () => {
         }
       );
       const data = await res.json();
-      setData(data.results);
+      setData(
+        data.results.map((elm, index) => ({
+          id: index + 1,
+          ...elm,
+        }))
+      );
       setPages(Math.ceil(data.results.length / 10));
     } catch (error) {
       console.error("There was an error loading data: ", error);
@@ -44,7 +49,10 @@ const Table = () => {
           <table>
             <thead>
               <tr>
-                <th className="text-center">ID</th>
+                <th className="table__id">
+                  <span>ID</span>{" "}
+                  <FaSort onClick={() => setData([...data].reverse())} />
+                </th>
                 <th className="text-left">Category</th>
                 <th className="text-left">Type</th>
                 <th>Difficulty</th>
@@ -56,9 +64,7 @@ const Table = () => {
                 .slice((tablePage - 1) * 10, (tablePage - 1) * 10 + 10)
                 .map((elm, index) => (
                   <tr key={index}>
-                    <td className="text-center">
-                      {(tablePage - 1) * 10 + index + 1}
-                    </td>
+                    <td className="text-center">{elm.id}</td>
                     <td>{decodeURIComponent(elm.category)}</td>
                     <td>
                       {formatType(

@@ -8,6 +8,21 @@
     font-weight: 400;
   }
 
+  &__id {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      color: #00bc8c;
+      cursor: pointer;
+    }
+
+    svg:hover {
+      color: red;
+    }
+  }
+
   table {
     border: 1px solid #464545;
     font-size: 15px;
@@ -55,6 +70,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: background-color 0.5s ease;
       }
       span:hover {
         background-color: #00dba3;
