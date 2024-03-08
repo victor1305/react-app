@@ -1,10 +1,32 @@
 .table {
   width: 1000px;
   margin: 0 auto;
-  
+
   h2 {
     color: #fff;
-    font-size: 30px;
-    font-weight: 500;
+    font-size: 32px;
+    font-weight: 400;
+  }
+
+  table {
+    border: 1px solid #464545;
+    font-size: 15px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 3px;
+
+    th, td {
+      padding: 8px;
+      color: #fff;
+      border: 1px solid #464545;
+    }
+
+    th {
+      background-color: #2c2c2c;
+    }
+
+    td {
+      background-color: #1b1b1b;
+    }
   }
 }
